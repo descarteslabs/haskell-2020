@@ -1,6 +1,6 @@
 -- This is a comment.
 
--- Here is a function of zero arguemnts. It looks like a constnat.
+-- Here is a function of zero arguemnts. It's a constnat.
 f0 = 2
 
 -- Here is a function of one argument
