@@ -1,6 +1,10 @@
 # haskell-2020
 Material for the DL Haskell 2020 class
 
+# The Text
+- primarily [Programming in Haskell](https://www.amazon.com/Programming-Haskell-Graham-Hutton/dp/1316626229/ref=asc_df_1316626229/?tag=hyprod-20&linkCode=df0&hvadid=312128454859&hvpos=&hvnetw=g&hvrand=6305069334589622472&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1022588&hvtargid=pla-404766124279&psc=1)
+
+
 # Getting started
 
 ## Installing
