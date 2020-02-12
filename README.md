@@ -11,7 +11,7 @@ If the above gives you a difficult time there are other [options](https://www.ha
 This gives you the following:
 - GHC, [Glasgow Haskell Compiler](https://www.haskell.org/ghc/)
 - Cabal, a build system which should generally be avoided like the plague. 
-- Stack, a haskell project management / build system
+- Stack, a haskell project management / build system (almost a hazmat suit for using cabal).
 - Other suff (profilers, code coverage, etc)
 
 > note: make sure to have the following installed: `sudo apt upgrade build-essential curl libgmp-dev libffi-dev libncurses-dev libtinfo5`
