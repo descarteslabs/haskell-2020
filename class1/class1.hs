@@ -1,17 +1,26 @@
+
+
+
+
+
 -- This is a comment.
 
 -- Here is a function of zero arguemnts. It's a constnat.
 f0 = 2
 
 -- Here is a function of one argument
+f1 :: Int -> Int
 f1 x = x + 2
 
 -- Here is a function of two arguments
-f2 x y = x + y
+f2 :: Int -> Int -> Int
+f2 x y = x + 2*y
 
 -- Here is a function in two equations
 f3 1 = 0
 f3 x = 1
+
+h x = 2*x
 
 -- Here are functions with an if-statement and recursion
 fib n =
