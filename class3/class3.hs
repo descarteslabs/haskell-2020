@@ -85,6 +85,8 @@ test2 = pv1 == pv2
 -- The following is an example of "record syntax" and default
 -- typeclass implementations. Note that "Book" is the name of the type
 -- constructor and the value constructor.
+--
+-- Note the placement of commets -- this is a common Haskell idiom.
 
 data Book = Book {
     title :: String
