@@ -52,6 +52,7 @@ data PerchanceAValue a = Yes a | No
 instance Show MyFirstType where
   show (MyFirstValueConstructor i) = show i
 
+-- Here we add a constraint on the type a
 instance (Show a) => Show (MyFirstTypeConstructor a) where
   show (MySecondValueConstructor x) = show x 
 
