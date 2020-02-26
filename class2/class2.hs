@@ -11,7 +11,7 @@ t2 = ("cat", "dog")
 -- Tuples can contain...
 t4 = ("more", "than", 1, "type")
 
--- Note: The parens operator can construct values instances of
+-- Note: The parens operator can construct values of
 -- tuple-types.
 
 -- tuple length is part of the type of the tuple. 
@@ -27,7 +27,7 @@ stuff = ["these", "are", "strings"]
 stuff1 = "of":stuff
 stuff2 = "all":stuff1
 
--- Note that cons is an infix function, not a language feature!
+-- Note that cons is an infix function.
 
 -- We use the index operator of '!!' to select an element of a list.
 word3 = stuff2 !! 3
@@ -122,7 +122,7 @@ f4 (x:xs) = "Not empty list. It has " ++ (show x) ++ " and also " ++ (show xs)
 -- Let's write our own map, we'll call it map'
 
 map' f [] = []
-map' f (x:xs) = f x:map' f xs
+map' f (x:xs) = (f x):(map' f xs)
 
 -- Question: Why is the first line of map' necessary?
 
