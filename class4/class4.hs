@@ -37,7 +37,7 @@ testTree = foldl treeInsert EmptyTree "Descartes Labs loves Haskell"
 
 -- Lets make Tree a better instance of Show
 
--- Lets make Tree a better instance of Read
+-- Can we make Tree a better instance of Read
 
 --------------
 -- Functors --
@@ -59,6 +59,22 @@ v5 = (+1) <$> [1..10]
 -- Applicative Functors --
 --------------------------
 
--- What if the function doing the mapping resides in a context? We use Applicative functors
+-- What if the mapping function itself resides in a context? We use
+-- Applicative functors. The key function in the Applicative type
+-- class is <*>
 v6 = Just (+1) <*> Just 8
 v7 = [(+1), (*2)] <*> [1..10]
+
+-- Currying and Applicatives go together amazingly well.
+
+v8 = Just (+) <*> Just 8 <*> Just 9
+
+
+-- v9 is not going to do what we'd want. 
+
+f a b 
+  | a == b = Nothing
+  | a < b = Just a
+  | otherwise = Just b
+
+v9 = Just f <*> Just 7 <*> Just 7
