@@ -33,7 +33,17 @@ listLength'' xs = go xs 0
 listSum [] = 0
 listSum (x:xs) = x + listSum xs
 
-listSum' = undefined
+listSum' xs = go xs 0
+  where
+    go [] n = n
+    go (x:xs) n = go xs (x + n)
+
+
+-- Can we make this tail-recursive? Not sure. 
+fib 0 = 0
+fib 1 = 1
+fib 2 = 1
+fib n = fib (n-1) + fib (n-2)
 
 --------------------------
 -- Algebraic Data Types --
@@ -56,11 +66,14 @@ instance Show MyFirstType where
 instance (Show a) => Show (MyFirstTypeConstructor a) where
   show (MySecondValueConstructor x) = show x 
 
+myPrint :: (Show a) => a -> String
+myPrint x = show x
+
 instance (Show a) => Show (PerchanceAValue a) where
   show (Yes x) = show x
   show No = "No value"
 
--- Lets make our new types instance of the Eq typeclass
+-- -- Lets make our new types instance of the Eq typeclass
 
 instance Eq MyFirstType where
   (==) (MyFirstValueConstructor i) (MyFirstValueConstructor j) = i == j
@@ -70,10 +83,11 @@ instance (Eq a) => Eq (MyFirstTypeConstructor a) where
 
 instance (Eq a) => Eq (PerchanceAValue a) where
   (==) (Yes x) (Yes j) = x == j
+  (==) No No = True
   (==) _ _ = False
 
 
--- Lets try this out
+-- -- Lets try this out
 pv1 = Yes 8
 pv2 = Yes 9
 pv3 = No
@@ -82,17 +96,22 @@ pv4 = Yes 8
 test1 = pv1 == pv4
 test2 = pv1 == pv2
 
--- The following is an example of "record syntax" and default
--- typeclass implementations. Note that "Book" is the name of the type
--- constructor and the value constructor.
---
--- Note the placement of commets -- this is a common Haskell idiom.
+-- -- The following is an example of "record syntax" and default
+-- -- typeclass implementations. Note that "Book" is the name of the type
+-- -- constructor and the value constructor.
+-- --
+-- -- Note the placement of commets -- this is a common Haskell idiom.
 
 data Book = Book {
     title :: String
   , author :: String
   , yearPublished :: Int
   , cost :: Float
+  } deriving (Show, Eq)
+
+data Movie = Movie {
+    title :: String
+  , year :: Int
   } deriving (Show, Eq)
 
 -- When using record syntax you get, for free, accessor functions
@@ -109,5 +128,5 @@ title' (Book t _ _ _) = t
 -- The following, if we uncomment it, will generate an error message
 -- as a duplicate function definition.
 
--- title (Book t _ _ _) = t
+-- -- title (Book t _ _ _) = t
 
