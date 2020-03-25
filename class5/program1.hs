@@ -7,7 +7,8 @@ main = E.getArgs >>= copyFiles
 copyFiles :: [String] -> IO ()
 copyFiles args =
   if length args == 2
-  then (IO.readFile srcFile) >>= (\c -> IO.writeFile dstFile c)
+  then (IO.readFile srcFile) >>=
+       x(\c -> IO.writeFile dstFile c)
   else usage
   where
     srcFile = args !! 0

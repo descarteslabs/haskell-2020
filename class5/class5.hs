@@ -11,10 +11,11 @@ newtype MyType a = MyType a
 
 -- Here's function that puts something into MyType
 putIntoMyType :: a -> MyType a
-putIntoMyType a = MyType a
+putIntoMyType x = MyType x
 
--- This will act on something in MyType with a function that puts the result back. 
-actMonadically ::  MyType a -> (a -> MyType b) -> MyType b
+-- This will act on something in MyType with a function that puts the
+-- result back.
+actMonadically :: MyType a -> (a -> MyType b) -> MyType b
 actMonadically (MyType a) f = f a
 
 -- Everything up to here is stuff we've seen before.
@@ -40,9 +41,15 @@ instance Monad MyType where
 -- Take 1: We'll just append a log to our arguments, and the function
 -- will concatenate
 
-logAdd x y log = (x + y, log ++ " added " ++ (show x) ++ " and " ++ (show y) ++ ",")
+logAdd x y log = (value, newLog)
+  where
+    value = x + y
+    newLog = log ++ " added " ++ (show x) ++ " and " ++ (show y) ++ ","
 
-logSub x y log = (x - y, log ++ " subtracted " ++ (show y) ++ " from " ++ (show x) ++ ",")
+logSub x y log = (value, newLog)
+  where
+    value = x - y
+    newLog = log ++ " subtracted " ++ (show y) ++ " from " ++ (show x) ++ ","
 
 -- Lets compute 4 + 5 - 3 + 1
 
@@ -67,7 +74,7 @@ logSub' (x, log) y = (x - y, log ++ ", subtracted " ++ (show y))
 
 -- Take 3: Lets see if Monads would work?
 
-newtype LoggedNumber a = LoggedNumber (a, String)
+newtype LoggedNumber a = LoggedNumber (a, String) deriving (Show)
 
 numberWithLog'' n = LoggedNumber (n, "")
 logVal'' x = LoggedNumber (x, "The number is " ++ (show x))
@@ -75,7 +82,8 @@ logAdd'' y x = LoggedNumber (x + y, " plus " ++ (show y))
 logSub'' y x = LoggedNumber (x - y, " minus " ++ (show y))
 
 instance Functor LoggedNumber where
-  fmap f (LoggedNumber (n, log)) = LoggedNumber (f n, log ++ " applied a function via fmap")
+  fmap f (LoggedNumber (n, log)) =
+    LoggedNumber (f n, log ++ " applied a function via fmap")
 
 instance Applicative LoggedNumber where
   pure = numberWithLog''
@@ -88,7 +96,8 @@ instance Monad LoggedNumber where
     let LoggedNumber (y, log1) = f n
     in LoggedNumber (y, log ++ " " ++ log1)
 
-LoggedNumber (n, l) = numberWithLog'' 4 >>= logVal'' >>= logAdd'' 5 >>= logSub'' 3 >>= logAdd'' 1
+LoggedNumber (n, l) =
+  numberWithLog'' 4 >>= logVal'' >>= logAdd'' 5 >>= logSub'' 3 >>= logAdd'' 1
 
 -- Assessment: Not bad, but maybe there's a way to avoid using logVal.
 
