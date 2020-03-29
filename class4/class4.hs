@@ -14,7 +14,7 @@ result2 = DM.lookup 3 map2
 -- The type keyword provides a means to create type aliases. Here
 -- we've partially evaulated the type constructor DM.Map by supplying
 -- the first type.
-type IntMap a = DM.Map Int a
+type IntMap = DM.Map Int
 
 map0' = DM.empty :: IntMap a
 map1' = DM.insert 1 "Haskell Class" map0'
@@ -25,7 +25,7 @@ map1' = DM.insert 1 "Haskell Class" map0'
 
 -- Lets create a Binary tree type, and make it an instance of both
 -- Show and Read typeclasses.
-data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show, Read)
+data Tree a = EmptyTree | Node a (Tree a) (Tree a) 
 
 treeInsert EmptyTree x = Node x EmptyTree EmptyTree
 treeInsert (Node y left right) x =
@@ -36,6 +36,9 @@ treeInsert (Node y left right) x =
 testTree = foldl treeInsert EmptyTree "Descartes Labs loves Haskell"
 
 -- Lets make Tree a better instance of Show
+instance (Show a) => Show (Tree a) where
+  show EmptyTree = ""
+  show (Node x left right) = (show left) ++ (show x) ++ (show right)
 
 -- Can we make Tree a better instance of Read
 
@@ -78,3 +81,9 @@ f a b
   | otherwise = Just b
 
 v9 = Just f <*> Just 7 <*> Just 7
+
+v8 = Just (+) <*> Just 8 <*> Just 9
+
+afmap a b = a <*> b 
+v8' = afmap (afmap (Just (+)) (Just 8)) (Just 9)
+
